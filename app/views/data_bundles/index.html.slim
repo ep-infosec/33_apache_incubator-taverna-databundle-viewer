@@ -1,0 +1,40 @@
+section.content-header
+  h1
+    | Data Bundles
+section.content
+  .row
+    - if user_signed_in?
+      .col-xs-7
+        .box
+          .box-body.table-responsive.no-padding
+            table.table.table-hover
+              tbody
+                tr
+                  th Name
+                  th Date
+                  th Download
+                  th Links
+                - @data_bundles.each do |data_bundle|
+                  tr
+                    td
+                      = data_bundle.name
+                    td
+                      = data_bundle.created_at.strftime('%d-%m-%Y %H:%M')
+                    td
+                      = link_to data_bundle.file_identifier, data_bundle.file.url
+                    td
+                      = link_to 'Visualize', data_bundle, id: "to_show_#{data_bundle.id}"
+                    td
+                      = link_to 'Delete bundle', data_bundle_path(data_bundle), method: :delete, data: {confirm: 'Are you sure?'}, id: "to_delete_#{data_bundle.id}"
+            = paginate @data_bundles
+      .col-xs-5
+        .box.box-primary
+          .box-header.with-border
+            h3.box-title New Databundle
+          = render partial: 'form'
+    - else
+      .col-xs-6
+        .box
+          .box-body
+            | For use the databundle viewer you must be logged in
+            = redirectToLogin

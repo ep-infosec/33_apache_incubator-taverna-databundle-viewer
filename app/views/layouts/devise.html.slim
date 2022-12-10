@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    meta[charset="UTF-8"]
+    title
+      | DatabundleViewer
+    meta[content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"]
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+  = yield
+  = javascript_include_tag 'application'
